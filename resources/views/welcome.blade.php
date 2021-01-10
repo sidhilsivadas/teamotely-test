@@ -66,6 +66,11 @@ padding:20px;
 
         <div class="container">
 
+          <div class="row" style="min-height: 150px;"></div>
+        </div>
+
+        <div class="container">
+
           <div class="row">
             <div class="col-md-4" >
                     
@@ -73,35 +78,42 @@ padding:20px;
 
               <div class="col-md-4" >
                     <div class="div-border" id="form-cont">
-                        
+                        <form method="post" action="#" id="form-upload">
+                          <div class="form-group">
+                            <label for="exampleFormControlFile1">Select A Csv File</label>
+                            <input type="file" class="form-control-file" id="select-file">
+                          </div>
+                          <div class="form-group">
+                            
+                            <button class="btn btn-success">Upload</button>
+                            
+                          </div>
+                        </form>
                     </div>
               </div>
 
               <div class="col-md-4 ">
-                <div class="div-border" id="">
-                    
-                </div>
+                
               </div>
 
               
 
           </div>
-           <div class="row"></div>
+           <div class="row " style="margin-top: 50px"></div>
            <div class="row">
-            <div class="col-md-3" >
+            <div class="col-md-2" >
                     
               </div>
 
-              <div class="col-md-6" >
-                    <div class="div-border" id="table-cont">
+              <div class="col-md-8" >
+                    <div class="div-border table-cont display-none" id="table-cont">
                         
                     </div>
               </div>
 
-              <div class="col-md-3 ">
-                <div class="div-border" id="">
-                    
-                </div>
+              <div class="col-md-2 ">
+                
+
               </div>
 
               
@@ -118,6 +130,40 @@ padding:20px;
             });
 
 
+
+            $(document).on("change","#select-file",function(){
+             
+              var fileExtension = ['csv'];
+              if ($.inArray($(this).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
+                $(this).val("");
+                alert("Please select acsv file");
+              }
+
+            });
+
+            $(document).on("submit","#form-upload",function(e){
+              e.preventDefault();
+              if($("#select-file").val() != ""){
+                var formData = new FormData(this);
+                $.ajax({
+                    url: "{{ url('/fileUpload') }}",
+                    type: 'POST',
+                    data: formData,
+                    success: function (data) {
+                        alert(data)
+                    },
+                    headers: {
+                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    cache: false,
+                    contentType: false,
+                    processData: false
+                });
+              }else{
+                alert("Please slect a csv file");
+              }
+
+            });
             
 
 
