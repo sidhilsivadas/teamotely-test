@@ -6,7 +6,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Sample App</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
@@ -145,12 +145,14 @@ padding:20px;
               e.preventDefault();
               if($("#select-file").val() != ""){
                 var formData = new FormData(this);
+                $("#loading").removeClass("display-none");
                 $.ajax({
                     url: "{{ url('/fileUpload') }}",
                     type: 'POST',
                     data: formData,
                     success: function (data) {
-                        alert(data)
+                        $("#table-cont").html(data.data).removeClass("display-none").fadeOut().fadeIn();
+                        $("#loading").addClass("display-none");
                     },
                     headers: {
                       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
