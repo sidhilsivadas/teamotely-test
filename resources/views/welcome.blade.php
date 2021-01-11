@@ -81,7 +81,7 @@ padding:20px;
                         <form method="post" action="#" id="form-upload">
                           <div class="form-group">
                             <label for="exampleFormControlFile1">Select A Csv File</label>
-                            <input type="file" class="form-control-file" id="select-file">
+                            <input type="file" name="file" class="form-control-file" id="select-file">
                           </div>
                           <div class="form-group">
                             

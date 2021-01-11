@@ -10,7 +10,7 @@ class HomeController extends Controller
     public function fileUpload(Request $request, HomeService $HomeService)
     {
 
-        //$data = $HomeService->fileUpload();
+        $data = $HomeService->fileUpload($request);
         return response()->json([
             "data" => ['success']
         ]);
